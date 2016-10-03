@@ -3,7 +3,10 @@
 Created at 30/09/16
 __author__ = 'Sergio Padilla'
 
+Exercise: Little game that generate random number and the user must be to guess it in less than 10 attempts
+
 """
+
 from random import randint
 
 mesagges = {
