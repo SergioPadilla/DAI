@@ -15,15 +15,15 @@ mesagges = {
 
 number = randint(1, 100)
 
-print 'Se ha generado un número aleatorio, ¿serás capaz de adivinarlo?'
+print('Se ha generado un número aleatorio, ¿serás capaz de adivinarlo?')
 
 for i in range(0, 10):
-    n = raw_input('Indica un número: ')
+    n = int(input('Indica un número: '))
 
-    if int(n) == number:
-        print mesagges['3']
+    if n == number:
+        print(mesagges['3'])
         break
-    elif int(n) < number:
-        print mesagges['0'] if i < 9 else mesagges['2']
+    elif n < number:
+        print(mesagges['0'] if i < 9 else mesagges['2'])
     else:
-        print mesagges['1'] if i < 9 else mesagges['2']
+        print(mesagges['1'] if i < 9 else mesagges['2'])
