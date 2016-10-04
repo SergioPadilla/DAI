@@ -69,19 +69,17 @@ def randvector(n):
     return x
 
 random_vector = randvector(int(input('Tamaño del vector: ')))
+
 start_insertion = time.time()
 insertion_sort(random_vector)
 end_insertion = time.time()
-print('Tiempo de ordenación insercción: ', end='')
 insertion_time = end_insertion-start_insertion
-print(insertion_time)
+print('Tiempo de ordenación insercción: ', insertion_time)
 
 start_quicksort = time.time()
 quicksort(random_vector)
 end_quicksort = time.time()
-print('Tiempo de ordenación quicksort: ', end='')
 quicksort_time = end_quicksort-start_quicksort
-print(quicksort_time)
+print('Tiempo de ordenación quicksort: ', quicksort_time)
 
-print('La diferencia entre insercción y quicksort es ', end='')
-print(insertion_time-quicksort_time)
+print('La diferencia entre insercción y quicksort es ', insertion_time-quicksort_time)
