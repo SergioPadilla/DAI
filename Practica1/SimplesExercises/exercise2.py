@@ -63,10 +63,7 @@ def quicksort(vector):
 
 
 def randvector(n):
-    x = []
-    for i in range(0, n):
-        x.append(randint(0, 99))
-    return x
+    return [randint(0, 99) for i in range(0, n)]
 
 random_vector = randvector(int(input('Tamaño del vector: ')))
 

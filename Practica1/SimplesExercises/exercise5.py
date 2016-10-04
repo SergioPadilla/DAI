@@ -8,6 +8,12 @@ Exercise: Generate random vector of '[' and ']' and check if the vector is balan
 from random import randint
 
 
+messages = {
+    '0': u'Correcto, está balanceado',
+    '1': u'Incorrecto, no está balanceado'
+}
+
+
 def random_string(n):
     v = ''
     n = randint(2, n)
@@ -37,4 +43,4 @@ m = int(input('Indica la longitud máxima de esas cadenas: '))
 for i in range(0, n):
     v = random_string(m)
     print(v)
-    print(isbalanced(v))
+    print(messages['0'] if isbalanced(v) else messages['1'])

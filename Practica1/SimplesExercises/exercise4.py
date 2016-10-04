@@ -24,6 +24,8 @@ writefilepath = filepath+writefilename
 
 read_file = open(readfilepath, mode='r')
 n = int(read_file.readline().replace('\n', ''))
+read_file.close()
 
 write_file = open(writefilepath, mode='w')
 write_file.write(str(fibonacci(n)))
+write_file.close()
