@@ -7,6 +7,7 @@ Exercise: Implements 2 sort algorithms and calculate the time to sort a random v
 
 """
 from random import randint
+import time
 
 
 def insertion_sort(vector):
@@ -68,9 +69,19 @@ def randvector(n):
     return x
 
 random_vector = randvector(int(input('Tamaño del vector: ')))
-print('vector desordenado:', end=' ')
-print(random_vector)
-print('vector ordenador por insercción:', end=' ')
-print(insertion_sort(random_vector))
-print('vector ordenador por quicksort:', end=' ')
-print(quicksort(random_vector))
+start_insertion = time.time()
+insertion_sort(random_vector)
+end_insertion = time.time()
+print('Tiempo de ordenación insercción: ', end='')
+insertion_time = end_insertion-start_insertion
+print(insertion_time)
+
+start_quicksort = time.time()
+quicksort(random_vector)
+end_quicksort = time.time()
+print('Tiempo de ordenación quicksort: ', end='')
+quicksort_time = end_quicksort-start_quicksort
+print(quicksort_time)
+
+print('La diferencia entre insercción y quicksort es ', end='')
+print(insertion_time-quicksort_time)
