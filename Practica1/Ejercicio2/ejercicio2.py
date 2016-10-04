@@ -32,12 +32,45 @@ def insertion_sort(vector):
     return sort
 
 
-randon_vector = []
-n = int(input('Tamaño del vector: '))
-for i in range(0,n):
-    randon_vector.append(randint(0, 99))
+def quicksort(vector):
+    n = len(vector)
+    if n == 0 or n == 1:
+        return vector
+    elif n == 2:
+        if vector[0] > vector[1]:
+            vector[0], vector[1] = vector[1], vector[0]
+        return vector
+    else:
+        pivot = vector[0]
+        i, j = 0, n-1
 
+        while i < j:
+            while vector[i] <= pivot and i < j:
+                i += 1
+            while vector[j] >= pivot and i < j:
+                j -= 1
+
+            if i < j:
+                vector[i], vector[j] = vector[j], vector[i]
+
+        if i == n - 1 and vector[n - 1] < pivot:
+            one, two = vector[1:n], []
+        else:
+            one, two = vector[1:i], vector[i:n]
+
+        return quicksort(one)+[pivot]+quicksort(two)
+
+
+def randvector(n):
+    x = []
+    for i in range(0, n):
+        x.append(randint(0, 99))
+    return x
+
+random_vector = randvector(int(input('Tamaño del vector: ')))
 print('vector desordenado:', end=' ')
-print(randon_vector)
-print('vector ordenador:', end=' ')
-print(insertion_sort(randon_vector))
+print(random_vector)
+print('vector ordenador por insercción:', end=' ')
+print(insertion_sort(random_vector))
+print('vector ordenador por quicksort:', end=' ')
+print(quicksort(random_vector))
