@@ -74,7 +74,27 @@ p a.more {
 	padding: 39px 10px 0;
 	width: 940px;
 }
-#header a img,
+#titles {
+    margin-left: 20px;
+}
+#logo_and_titles {
+    display: flex;
+    float: left;
+}
+#form_session {
+    float: right;
+}
+#session_user {
+    margin-bottom: 10px;
+}
+#form_session form div label {
+    float: left;
+    margin-right: 20px;
+}
+#form_session form div input {
+    float: right;
+}
+a img,
 #body div #about div div.figure img,
 #body div #contact div form label {
 	display: block;
@@ -187,7 +207,7 @@ p a.more {
 	overflow: hidden;
 }
 #body div div#home div.news h3,
-#footer div #newsletter h3,
+#footer div #author h3,
 #footer div #connect h3,
 #body div #newsblog div div h3,
 #body div #about div div.section h3,
@@ -534,9 +554,7 @@ p a.more {
 	text-indent: -99999px;
 }
 #footer div #connect a#github {
-	background: url(../images/github.png) no-repeat;
-	height: 26px;
-	width: 12px;
+	background: url(../images/github.png);
 }
 
 #footer > p {
