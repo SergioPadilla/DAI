@@ -69,17 +69,20 @@ p a.more {
 	text-decoration: none;
 }
 #header {
-	height: 147px;
+	height: 160px;
 	margin: 0 auto;
 	padding: 39px 10px 0;
 	width: 940px;
 }
 #titles {
-    margin-left: 20px;
+    margin-left: 30px;
 }
 #logo_and_titles {
     display: flex;
     float: left;
+}
+.welcome {
+	float: right;
 }
 #form_session {
     float: right;

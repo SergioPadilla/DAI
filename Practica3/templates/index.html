@@ -15,9 +15,15 @@
                 <h2>Subtitle</h2>
             </div>
         </div>
+		{% if user %}
+		<div class="welcome">
+			<h2>Welcome {{user}}</h2>
+			<a href="/logout">Log out</a>
+		</div>
+		{% else %}
         <div id="form_session">
 			{% from "_formhelper.html" import render_field %}
-			<form method=post action="/register">
+			<form method=post action="/">
 			  <dl>
 				{{ render_field(form.username) }}
 				{{ render_field(form.password) }}
@@ -26,6 +32,7 @@
 			  <p><input type=submit value=Register>
 			</form>
         </div>
+		{% endif %}
 	</div>
 	<div id="body">
 		<div>

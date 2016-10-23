@@ -92,3 +92,6 @@ ENV/
 *.idea*
 *idea*
 *.DS_Store*
+
+#credential
+Practica3/credential
