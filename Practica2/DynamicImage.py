@@ -8,9 +8,11 @@ from Practica2 import mandelbrot
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def init():
     return render_template('dynamic_image_index.html')
+
 
 @app.route("/mandelbrot", methods=['GET'])
 def process():
@@ -19,10 +21,10 @@ def process():
     x2 = float(request.args.get('x2'))
     y2 = float(request.args.get('y2'))
     pixels = int(request.args.get('pixels'))
-    mandelbrot.renderizaMandelbrot(x1, y1, x2, y2, pixels, 100, 'fractal.png')
+    mandelbrot.renderizaMandelbrot(x1, y1, x2, y2, pixels, 100, 'static/fractal.png')
     return """
     <body>
-        <img src='fractal.png'>
+        <img src='/static/fractal.png'>
     </body>
     """
 
