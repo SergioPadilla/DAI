@@ -21,6 +21,7 @@ def index():
     if request.method == 'POST' and form.validate():
         session['username'] = form.username.data
         session['password'] = form.password.data
+        session['sites'] = []
         return redirect(url_for('login'))
     elif 'username' in session:
         return redirect(url_for('login'))
@@ -44,7 +45,7 @@ def login():
 
 @app.route("/sites")
 def sites():
-    return render_template('sites.html')
+    return render_template('sites.html', sites=session['sites'])
 
 
 @app.route('/logout')
@@ -56,27 +57,42 @@ def logout():
 
 @app.route('/about')
 def about():
+    site_visited("about")
     return render_template('about.html')
 
 
 @app.route('/contact')
 def contact():
+    site_visited("contact")
     return render_template('contact.html')
 
 
 @app.route('/newsblog')
 def newsblog():
+    site_visited("newsblog")
     return render_template('newsblog.html')
 
 
 @app.route('/surfbase')
 def surfbase():
+    site_visited("surfbase")
     return render_template('surfbase.html')
 
 
 @app.route('/me')
 def personal():
+    site_visited("me")
     return render_template('personal.html')
+
+
+def site_visited(site):
+    sites = session['sites']
+    if len(sites) < 3:
+        sites.append(site)
+    else:
+        sites.pop(0)
+        sites.append(site)
+    session['sites'] = sites
 
 
 if __name__ == "__main__":

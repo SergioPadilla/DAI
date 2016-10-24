@@ -24,21 +24,11 @@
 {% endblock %}
 {% block content %}
 <div id="home">
-    <h1><span>Enjoy surfing the Website!</span></h1>
+    <h1><span>That's your recent sites visited!</span></h1>
+    {% for site in sites %}
     <div class="section">
-        <a href="surfbase">Go To <span>Surf Base</span></a>
+        <a href="{{site}}">Go To <span>{{site}}</span></a>
     </div>
-    <div class="section">
-        <a href="newsblog">Go To <span>News Blog</span></a>
-    </div>
-    <div class="section">
-        <a href="about">Go To <span>About</span></a>
-    </div>
-    <div class="section">
-        <a href="contact">Go To <span>Contact</span></a>
-    </div>
-    <div class="section">
-        <a href="me">Go To <span>Personal Section</span></a>
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}
