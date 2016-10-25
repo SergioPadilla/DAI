@@ -38,6 +38,11 @@
 		<div>
 			<ul id="navigation">
 				{% block navigation %}{% endblock %}
+				{% if register %}
+				<li>
+					<a href="register" class="link2">Register/Login</a>
+				</li>
+				{% endif %}
 			</ul>
 			{% block content %}{% endblock %}
 		</div>
