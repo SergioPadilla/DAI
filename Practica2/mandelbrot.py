@@ -117,3 +117,7 @@ def renderizaMandelbrotBonito(x1, y1, x2, y2, ancho, iteraciones, nombreFicheroP
                     image.putpixel((x, y), getColorPaleta(paleta, nColoresPaleta, i))
 
         image.save(nombreFicheroPNG, "PNG")
+
+
+if __name__ == "__main__":
+    renderizaMandelbrotBonito(-1.0,-1.0,1.0,1.0,300,100,'fractal.png',[(0.3,0.4,0.7), (0.4,0.2,0.8), (0.3,0.3,0.5)], 3)

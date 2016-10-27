@@ -14,13 +14,31 @@ def init():
     return render_template('dynamic_image_index.html')
 
 
-@app.route("/mandelbrot", methods=['GET'])
+@app.route("/mandelbrotsimple", methods=['GET'])
 def process():
     x1 = float(request.args.get('x1'))
     y1 = float(request.args.get('y1'))
     x2 = float(request.args.get('x2'))
     y2 = float(request.args.get('y2'))
     pixels = int(request.args.get('pixels'))
+    mandelbrot.renderizaMandelbrot(x1, y1, x2, y2, pixels, 100, 'static/fractal.png')
+    return """
+    <body>
+        <img src='/static/fractal.png'>
+    </body>
+    """
+
+
+@app.route("/mandelbrotcomplex", methods=['GET'])
+def process():
+    x1 = float(request.args.get('x1'))
+    y1 = float(request.args.get('y1'))
+    x2 = float(request.args.get('x2'))
+    y2 = float(request.args.get('y2'))
+    pixels = int(request.args.get('pixels'))
+    r = int(request.args.get('r'))
+    g = int(request.args.get('g'))
+    b = int(request.args.get('b'))
     mandelbrot.renderizaMandelbrot(x1, y1, x2, y2, pixels, 100, 'static/fractal.png')
     return """
     <body>
