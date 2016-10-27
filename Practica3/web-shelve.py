@@ -3,10 +3,9 @@ Created at 23/10/16
 __author__ = 'Sergio Padilla'
 
 """
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for
 import os
 import shelve
-
 from Practica3.Forms.Register import RegistrationForm
 from Practica3.Utils.User import User
 
