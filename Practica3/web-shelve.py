@@ -3,23 +3,16 @@ Created at 23/10/16
 __author__ = 'Sergio Padilla'
 
 """
-from flask import Flask, render_template, request, redirect, url_for
-import os
+from flask import Flask, render_template, request, redirect, url_for, session
 import shelve
 from Practica3.Forms.Register import RegistrationForm
-from Practica3.Utils.User import User
 
 app = Flask(__name__)
-
-SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-TEMPLATES_DIR = os.path.join(SITE_ROOT, '/templates/')
-
-user = None
 
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('home.html', register=True)
+    return render('home.html')
 
 
 read_file = open("credential", mode='r')
@@ -31,27 +24,24 @@ read_file.close()
 def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
-        global user
         # Open shelve
         db = shelve.open('test-shelve.db', writeback=True)
         try:
             exist = db[form.username.data]
             if exist and len(exist) > 0:
-                if exist == form.password.data:
-                    user = User(form.username.data, form.password.data)
-                    return render_template('home.html', user=user.username, register=True)
+                if exist['password'] == form.password.data:
+                    session['username'] = form.username.data
+                    return render_template('home.html', user=session['username'], register=True)
                 else:
                     return render_template('register.html', form_register=form, error='Incorrect Password')
             else:
-                db[form.username.data] = form.password.data
-                db[form.username.data]['sites'] = []
-                user = User(form.username.data, form.password.data)
-                return render_template('home.html', user=user.username)
+                db[form.username.data] = {'password': form.password.data, 'sites': []}
+                session['username'] = form.username.data
+                return render_template('home.html', user=session['username'])
         except KeyError:
-            db[form.username.data] = form.password.data
-            db[form.username.data]['sites'] = []
-            user = User(form.username.data, form.password.data)
-            return render_template('home.html', user=user.username)
+            db[form.username.data] = {'password': form.password.data, 'sites': []}
+            session['username'] = form.username.data
+            return render_template('home.html', user=session['username'])
         finally:
             db.close()
 
@@ -60,13 +50,13 @@ def register():
 
 @app.route("/sites")
 def sites():
-    global user
-    if user:
+    if 'username' in session:
         # Open shelve
         db = shelve.open('test-shelve.db', writeback=True)
         try:
-            sites = db[user.username]['sites']
-            return render_template('sites.html', sites=sites, register=True)
+            exist = db[session['username']]
+            sites = exist['sites']
+            return render_template('sites.html', user=session['username'], sites=sites)
         except KeyError:
             return render_template('sites.html', register=True)
         finally:
@@ -77,69 +67,63 @@ def sites():
 
 @app.route('/logout')
 def logout():
-    global user
-    if user:
-        # Open shelve
-        db = shelve.open('test-shelve.db', writeback=True)
-        try:
-            db[user.username]
-        finally:
-            db.close()
+    # remove the username from the session if it's there
+    session.pop('username', None)
     return redirect(url_for('index'))
 
 
 @app.route('/about')
 def about():
-    if user:
-        site_visited("about")
-    return render_template('about.html', register=True)
+    site_visited("about")
+    return render('about.html')
 
 
 @app.route('/contact')
 def contact():
-    if user:
-        site_visited("contact")
-    return render_template('contact.html', register=True)
+    site_visited("contact")
+    return render('contact.html')
 
 
 @app.route('/newsblog')
 def newsblog():
-    if user:
-        site_visited("newsblog")
-    return render_template('newsblog.html', register=True)
+    site_visited("newsblog")
+    return render('newsblog.html')
 
 
 @app.route('/surfbase')
 def surfbase():
-    if user:
-        site_visited("surfbase")
-    return render_template('surfbase.html', register=True)
+    site_visited("surfbase")
+    return render('surfbase.html')
 
 
 @app.route('/me')
 def personal():
-    if user:
-        site_visited("me")
-    return render_template('personal.html', register=True)
+    site_visited("me")
+    return render('personal.html')
 
 
 def site_visited(site):
-    global user
-    # Open shelve
-    db = shelve.open('test-shelve.db', writeback=True)
-    try:
-        sites = db[user.username]['sites']
-
-        if sites:  # only for security
+    if 'username' in session:
+        # Open shelve
+        db = shelve.open('test-shelve.db', writeback=True)
+        try:
+            exist = db[session['username']]
+            sites = exist['sites']
             if len(sites) < 3:
                 sites.append(site)
             else:
                 sites.pop(0)
                 sites.append(site)
+            exist['sites'] = sites
+        finally:
+            db.close()
 
-            db[user.username]['sites'] = sites
-    finally:
-        db.close()
+
+def render(template):
+    if 'username' in session:
+        return render_template(template, user=session['username'])
+    else:
+        return render_template(template, register=True)
 
 
 if __name__ == "__main__":

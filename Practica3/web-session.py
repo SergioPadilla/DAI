@@ -4,15 +4,9 @@ __author__ = 'Sergio Padilla'
 
 """
 from flask import Flask, render_template, request, redirect, url_for, session
-import os
-
 from Practica3.Forms.Register import RegistrationForm
-from Practica3.Utils.User import User
 
 app = Flask(__name__)
-
-SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-TEMPLATES_DIR = os.path.join(SITE_ROOT, '/templates/')
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -37,15 +31,17 @@ read_file.close()
 @app.route("/login")
 def login():
     if 'username' in session:
-        user = User(session['username'], session['password'])
-        return render_template('home.html', user=user.username)
+        return render_template('home.html', user=session['username'])
     else:
         return redirect(url_for('index'))
 
 
 @app.route("/sites")
 def sites():
-    return render_template('sites.html', sites=session['sites'])
+    if 'sites' in session:
+        return render_template('sites.html', user=session['username'], sites=session['sites'])
+    else:
+        return render_template('sites.html')
 
 
 @app.route('/logout')
@@ -58,41 +54,49 @@ def logout():
 @app.route('/about')
 def about():
     site_visited("about")
-    return render_template('about.html')
+    return render('about.html')
 
 
 @app.route('/contact')
 def contact():
     site_visited("contact")
-    return render_template('contact.html')
+    return render('contact.html')
 
 
 @app.route('/newsblog')
 def newsblog():
     site_visited("newsblog")
-    return render_template('newsblog.html')
+    return render('newsblog.html')
 
 
 @app.route('/surfbase')
 def surfbase():
     site_visited("surfbase")
-    return render_template('surfbase.html')
+    return render('surfbase.html')
 
 
 @app.route('/me')
 def personal():
     site_visited("me")
-    return render_template('personal.html')
+    return render('personal.html')
 
 
 def site_visited(site):
-    sites = session['sites']
-    if len(sites) < 3:
-        sites.append(site)
+    if 'sites' in session:
+        sites = session['sites']
+        if len(sites) < 3:
+            sites.append(site)
+        else:
+            sites.pop(0)
+            sites.append(site)
+        session['sites'] = sites
+
+
+def render(template):
+    if 'username' in session:
+        return render_template(template, user=session['username'])
     else:
-        sites.pop(0)
-        sites.append(site)
-    session['sites'] = sites
+        return render_template(template)
 
 
 if __name__ == "__main__":
