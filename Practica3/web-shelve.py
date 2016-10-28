@@ -96,9 +96,33 @@ def surfbase():
     return render('surfbase.html')
 
 
-@app.route('/me')
+@app.route('/me', methods=['GET', 'POST'])
 def personal():
+    form = RegistrationForm(request.form)
     site_visited("me")
+    if request.method == 'POST' and form.validate():
+        # Open shelve
+        db = shelve.open('test-shelve.db', writeback=True)
+        try:
+            exist = db[session['username']]
+            if session['username'] == form.username.data:
+                db[form.username.data] = {'password': form.password.data, 'sites': []}
+                return render_template('personal.html', username=session['username'], password=form.password.data,
+                                       form_register=form, user=session['username'])
+            else:
+                return render_template('personal.html', username=session['username'], password=exist['password'],
+                                       form_register=form, error='Change username not allow', user=session['username'])
+        finally:
+            db.close()
+    if 'username' in session:
+        db = shelve.open('test-shelve.db', writeback=True)
+        try:
+            exist = db[session['username']]
+            return render_template('personal.html', username=session['username'], password=exist['password'],
+                                   form_register=form, user=session['username'])
+        finally:
+            db.close()
+
     return render('personal.html')
 
 

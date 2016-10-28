@@ -211,7 +211,7 @@ a img,
 }
 #body div div#home div.news h3,
 #footer div #author h3,
-#footer div #connect h3,
+#footer div #follow h3,
 #body div #newsblog div div h3,
 #body div #about div div.section h3,
 #body div #contact h3 {
@@ -524,8 +524,22 @@ a img,
 #footer div #author {
 	float: left;
 	position: relative;
-	width: 780px;
+	width: 50%;
 }
+
+#footer div #follow {
+    float: right;
+    position: relative;
+    width: 20%;
+    height: 200px;
+}
+
+#footer div #follow h3 {
+	font-size: 16px;
+	padding: 0;
+	width: 417px;
+}
+
 #footer div #author h3 {
 	font-size: 16px;
 	padding: 0;
@@ -556,9 +570,6 @@ a img,
 	margin: 12px 10px 0;
 	text-indent: -99999px;
 }
-#footer div #connect a#github {
-	background: url(../images/github.png);
-}
 
 #footer > p {
 	color: #0f378f;
@@ -566,4 +577,15 @@ a img,
 	line-height: 20px;
 	padding: 47px 0 29px;
 	text-align: center;
+}
+
+div#personal {
+	margin-left: 250px;
+}
+
+#footer div #follow h3 {
+    font-size: 16px;
+    position: absolute;
+    padding: 0;
+    float: right;
 }

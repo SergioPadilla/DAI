@@ -24,6 +24,38 @@
 {% endblock %}
 {% block content %}
 <div id="personal">
-    <h2>Esto es una página de prueba, simplemente para tener una más para navegar</h2>
+    <h2>Personal Section</h2>
+    {% if username %}
+    <p>Here, your personal data save in the DB:</p>
+
+    <div>
+        <label class="title">Username:</label>
+        <label class="value">{{username}}</label>
+    </div>
+    <div>
+        <label class="title">Password:</label>
+        <label class="value">{{password}}</label>
+    </div>
+
+    <div></div>
+
+    <p>Complete this form to change your password (username must be the same)</p>
+    <div class="registerform">
+        {% from "_formhelper.html" import render_field %}
+        <form method=post action="/me">
+          <dl>
+            {{ render_field(form_register.username) }}
+            {{ render_field(form_register.password) }}
+            {{ render_field(form_register.confirm) }}
+          </dl>
+          <p><input type=submit value=Register>
+        </form>
+    </div>
+    <div class="error" >
+        {% if error %}
+        <p style="color: red">{{error}}</p>
+        {% endif %}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
