@@ -10,6 +10,11 @@ import time
 
 app = Flask(__name__)
 
+"""
+pruebas:
+http://127.0.0.1:5000/mandelbrot?x1=-1&y1=-1&x2=1&y2=1&pixels=300
+
+"""
 
 @app.route("/")
 def init():
