@@ -52,4 +52,24 @@
             </tbody>
         </table>
     </div>
+
+    {% if totalpages > 1%}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    {% for x in range(0, totalpages) %}
+                    <td><a onclick="getPage({{x+1}})">{{ x+1 }}</a></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+       function getPage(n) {
+           console.log(n);
+        $.get("/find", {page:n});
+       }
+    </script>
+    {% endif %}
 {% endblock %}

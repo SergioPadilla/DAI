@@ -36,14 +36,20 @@ def mongo_examples():
 
 @app.route("/find", methods=['GET', 'POST'])
 def find():
+    nperpage = 200
     if request.method == 'POST':
         key = str(request.form['key'])
         value = str(request.form['value']) if key != 'restaurant_id' else int(request.form['value'])
         cursor = db.restaurants.find({key: value})
+        totalpages = 1
     else:
-        cursor = db.restaurants.find()
+        total = db.restaurants.find().count()
+        page = int(request.args.get("page")) if request.args.get("page") else 1
+        totalpages = int(total / nperpage) + 1
+        offset = (page-1)*nperpage
+        cursor = db.restaurants.find().skip(offset).limit(nperpage)
 
-    return render_template('mongo_example_find.html', cursor=cursor)
+    return render_template('mongo_example_find.html', cursor=cursor, totalpages=totalpages)
 
 
 @app.route("/add", methods=['GET', 'POST'])
