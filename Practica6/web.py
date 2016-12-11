@@ -124,5 +124,10 @@ def get_borough_data():
     return json.dumps(boroughs_array)
 
 
+@app.route("/maps", methods=['GET'])
+def maps():
+    return render_template('maps.html')
+
+
 if __name__ == "__main__":
     app.run()
