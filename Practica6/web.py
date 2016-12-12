@@ -6,6 +6,7 @@ __author__ = 'Sergio Padilla'
 from flask import Flask, render_template, request, redirect, url_for, session
 from pymongo import MongoClient
 import json
+import tweepy
 
 app = Flask(__name__)
 client = MongoClient()
@@ -129,5 +130,31 @@ def maps():
     return render_template('maps.html')
 
 
+@app.route("/twitter-timeline", methods=['GET'])
+def twitter_timeline():
+    return render_template('twitter-timeline.html')
+
+
+def exec_tweepy():
+    # Consumer keys and access tokens, used for OAuth
+    consumer_key = 'consumerkey'
+    consumer_secret = 'consumersecret'
+    access_token = 'accesstoken'
+    access_token_secret = 'accesstokensecret'
+    # OAuth process, using the keys and tokens
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+    # Creation of the actual interface, using authentication
+    api = tweepy.API(auth)
+    # https://dev.twitter.com/docs/api/1.1/get/search/tweets
+    tweets = api.search(q='Granada', count=1)
+    # Mostramos los campos del objeto Tweet
+    print dir(tweets[0])
+    # Mostramos los campos del objeto author del Tweet
+    print dir(tweets[0].author)
+    # Mostramos el nombre del Autor del Tweet.
+    print tweets[0].author.name
+    
+    
 if __name__ == "__main__":
     app.run()
