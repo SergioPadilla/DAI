@@ -40,7 +40,7 @@
                     <th class="text-center">name</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="body_restaurants">
                 {% for document in cursor %}
                 <tr>
                     <td>{{ document['restaurant_id'] }}</td>
@@ -54,21 +54,30 @@
     </div>
 
     {% if totalpages > 1%}
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <tbody>
-                <tr>
-                    {% for x in range(0, totalpages) %}
-                    <td><a onclick="getPage({{x+1}})">{{ x+1 }}</a></td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <ul class="pagination">
+        {% for x in range(0, totalpages) %}
+            <li><a onclick="getPage({{x+1}})">{{ x+1 }}</a></li>
+        {% endfor %}
+    </ul>
+
     <script>
        function getPage(n) {
            console.log(n);
-        $.get("/find", {page:n});
+            $.get("/findpage", {page:n}, function (response) {
+                var array = JSON.parse(response);
+                var html = "";
+                $("#body_restaurants").empty()
+                for (var i = 0; i < array.length; i++) {
+                    html += "<tr>" +
+                            "<td>"+array[i].restaurant_id+"</td>" +
+                            "<td>"+array[i].cuisine+"</td>" +
+                            "<td>"+array[i].borough+"</td>" +
+                            "<td>"+array[i].name+"</td>" +
+                            "</tr>"
+                }
+                console.log(html);
+                $("#body_restaurants").html(html);
+            });
        }
     </script>
     {% endif %}
