@@ -207,7 +207,7 @@ def get_mashup():
     for language in languages:
         data = []
         data.append(language)
-        tweets = api.search(q="twitter", lang=language, count=100)
+        tweets = api.search(q="rajoy", lang=language, count=100)
         data.append(len(tweets))
         result.append(data)
 
