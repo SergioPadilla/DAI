@@ -1,16 +1,16 @@
 {% extends "mongo_examples.html" %}
 
 {% block navheader %}
-    <li><a href="/find">Consultas</a></li>
-    <li><a href="/add">Insercción</a></li>
-    <li class="active"><a href="/remove">Eliminar</a></li>
+    <li><a href="/restaurantes/find">Consultas</a></li>
+    <li><a href="/restaurantes/add">Insercción</a></li>
+    <li class="active"><a href="/restaurantes/remove">Eliminar</a></li>
 {% endblock %}
 
 {% block main %}
     <h1>Sección de ejemplo de borrado en MongoDB</h1>
     <p>Esta sección te permite borrar uno o varios elementos por algún tipo de clave-valor que los identifique</p>
 
-    <form action="/remove" method="post">
+    <form action="/restaurantes/remove" method="post">
         <fieldset>
             <legend>Borrado por clave-valor</legend>
             <label>Selecciona cuántos elementos quieres borrar</label>

@@ -1,16 +1,16 @@
 {% extends "mongo_examples.html" %}
 
 {% block navheader %}
-    <li class="active"><a href="/find">Consultas</a></li>
-    <li><a href="/add">Insercción</a></li>
-    <li><a href="/remove">Eliminar</a></li>
+    <li class="active"><a href="/restaurantes/find">Consultas</a></li>
+    <li><a href="/restaurantes/add">Insercción</a></li>
+    <li><a href="/restaurantes/remove">Eliminar</a></li>
 {% endblock %}
 
 {% block main %}
     <h1>Sección de ejemplo de búsqueda en MongoDB</h1>
     <h2>Filtro</h2>
 
-    <form action="/find" method="post">
+    <form action="/restaurantes/find" method="post">
         <fieldset>
             <legend>Filtro por clave-valor</legend>
             <label>Clave</label>
@@ -27,7 +27,7 @@
     </form>
 
     <legend>Limpiar búsqueda</legend>
-    <a href="/find"><button class="btn btn-primary">Limpiar Búsqueda</button></a>
+    <a href="/restaurantes/find"><button class="btn btn-primary">Limpiar Búsqueda</button></a>
 
     <div class="table-responsive">
         <h2>Resultados</h2>
@@ -43,42 +43,13 @@
             <tbody id="body_restaurants">
                 {% for document in cursor %}
                 <tr>
-                    <td>{{ document['restaurant_id'] }}</td>
-                    <td>{{ document['cuisine'] }}</td>
-                    <td>{{ document['borough'] }}</td>
-                    <td>{{ document['name'] }}</td>
+                    <td>{{ document.id }}</td>
+                    <td>{{ document.cuisine }}</td>
+                    <td>{{ document.borough }}</td>
+                    <td>{{ document.name }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-
-    {% if totalpages > 1%}
-    <ul class="pagination">
-        {% for x in range(0, totalpages) %}
-            <li><a onclick="getPage({{x+1}})">{{ x+1 }}</a></li>
-        {% endfor %}
-    </ul>
-
-    <script>
-       function getPage(n) {
-           console.log(n);
-            $.get("/findpage", {page:n}, function (response) {
-                var array = JSON.parse(response);
-                var html = "";
-                $("#body_restaurants").empty()
-                for (var i = 0; i < array.length; i++) {
-                    html += "<tr>" +
-                            "<td>"+array[i].restaurant_id+"</td>" +
-                            "<td>"+array[i].cuisine+"</td>" +
-                            "<td>"+array[i].borough+"</td>" +
-                            "<td>"+array[i].name+"</td>" +
-                            "</tr>"
-                }
-                console.log(html);
-                $("#body_restaurants").html(html);
-            });
-       }
-    </script>
-    {% endif %}
 {% endblock %}

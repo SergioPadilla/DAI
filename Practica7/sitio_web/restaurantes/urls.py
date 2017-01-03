@@ -7,5 +7,9 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^test/$', views.test, name='test'),
+    url(r'^me/$', views.me, name='me'),
+    url(r'^examples/$', views.examples, name='examples'),
+    url(r'^highcharts/$', views.highcharts, name='highcharts'),
+    url(r'^mongo_examples/$', views.find, name='mongo_examples'),
+    # url(r'^find/$', views.find, name='find'),
 ]
