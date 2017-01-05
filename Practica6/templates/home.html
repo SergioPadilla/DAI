@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block navigation %}
+<li class="active"><a href="/">Presentación</a></li>
+<li><a href="/examples">Ejemplos</a></li>
+<li><a href="/me">Personal</a></li>
+<li><a href="/highcharts">Highcharts</a></li>
+<li><a href="/maps">Maps</a></li>
+<li><a href="/tweets">Tweets</a></li>
+<li><a href="/rss">RSS</a></li>
+<li><a href="/mashup">Mashup</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="inner cover">
+    <h1 class="cover-heading">Descubre MongoDB</h1>
+    <button id="animate-title">Animate</button>
+    <p class="lead">Bienvenido a mi página personal, puedes conocer más acerca de mi en la sección
+        <a class="link" href="/me">personal</a>, en esta página puedes encontrar ejemplos de uso con la base de datos MongoDB en
+        la sección <a class="link" href="/ejemplos"> Ejemplos</a>. </p>
+    <button id="a-color">Cambiar color enlaces</button>
+</div>
+{% endblock %}
