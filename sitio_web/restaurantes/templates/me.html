@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block navigation %}
+<li><a href="/restaurantes/">Presentación</a></li>
+<li><a href="/restaurantes/examples">Ejemplos</a></li>
+<li class="active"><a href="/restaurantes/me">Personal</a></li>
+<li><a href="/restaurantes/highcharts">Highcharts</a></li>
+<li><a href="/restaurantes/maps">Maps</a></li>
+<li><a href="/restaurantes/tweets">Tweets</a></li>
+<li><a href="/restaurantes/rss">RSS</a></li>
+<li><a href="/restaurantes/mashup">Mashup</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="inner cover">
+    <a class="twitter-follow-button"
+       data-show-count=false
+       href="https://twitter.com/sergiopadillalp">Follow @SergioPadillaLP</a>
+    <a href="/restaurantes/twitter-timeline">Go to twitter timeline</a>
+    <h1 class="cover-heading">Sergio Padilla López</h1>
+    <p class="lead">Desarrollador de aplicaciones nativas.</p>
+    <p class="lead">Conecta conmigo en mis principales redes y conóce más acerca de mi.
+</div>
+{% endblock %}
