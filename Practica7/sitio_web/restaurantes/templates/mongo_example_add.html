@@ -1,4 +1,5 @@
 {% extends "mongo_examples.html" %}
+{% load crispy_forms_tags %}
 
 {% block navheader %}
     <li><a href="/restaurantes/find">Consultas</a></li>
@@ -9,20 +10,10 @@
 {% block main %}
     <h1>Sección de ejemplo de insercción en MongoDB</h1>
 
-    <form action="/restaurantes/add" method="post">
-        <fieldset>
-            <legend>Añade un nuevo restaurante</legend>
-            <label>ID</label>
-            <input type="text" name="id">
-            <label>CUISINE</label>
-            <input type="text" name="cuisine">
-            <label>NAME</label>
-            <input type="text" name="name">
-            <label>BOROUGH</label>
-            <input type="text" name="borough">
-            <button type="submit" class="btn">INSERTAR</button>
-        </fieldset>
-    </form>
+    {% csrf_token %}
+
+    {% crispy form %}
+
     {% if message %}
     <h4>{{ message }}</h4>
     {% endif %}

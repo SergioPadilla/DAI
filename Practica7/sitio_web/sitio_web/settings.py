@@ -11,11 +11,18 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from pymongo import MongoClient
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+# TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+# MongoDB
+MONGOCLIENT = MongoClient()
+
+# Crispy
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -33,12 +40,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'registration',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'restaurantes',
+    'crispy_forms',
 )
 
 MIDDLEWARE = [
@@ -56,7 +65,7 @@ ROOT_URLCONF = 'sitio_web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "restaurantes", "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,3 +133,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "restaurantes", "static"),
     # '/static_pro/static/',
 ]
+
+# Registration
+REGISTRATION_OPEN = True        # If True, users can register
+ACCOUNT_ACTIVATION_DAYS = 15     # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
+LOGIN_REDIRECT_URL = '/restaurantes/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/accounts/login/'

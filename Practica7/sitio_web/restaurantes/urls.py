@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^mongo_examples/$', views.find, name='mongo_examples'),
     url(r'^findpage/$', views.findpage, name='findpage'),
     url(r'^find/$', views.find, name='find'),
+    url(r'^add/$', views.add, name='add'),
     url(r'^get_borough_data/$', views.get_borough_data, name='get_borough_data'),
 ]
