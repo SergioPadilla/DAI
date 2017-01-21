@@ -98,3 +98,8 @@ Practica3/credential
 
 # images
 *Practica6/images
+
+venv
+*.pyc
+staticfiles
+.env
