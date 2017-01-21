@@ -1,0 +1,8 @@
+{
+  "name": "DAI_DJANGO",
+  "description": "dai django app",
+  "image": "heroku/python",
+  "repository": "https://git.heroku.com/sergiodai.git",
+  "keywords": ["python", "django" ],
+  "addons": [ "" ]
+}
