@@ -64,7 +64,7 @@ def add(request):
                  })
 
             if result:
-                print result.inserted_id
+                print(result.inserted_id)
                 message = 'El restaurante ha sido insertado con exito'
             else:
                 message = 'Error insertando el restaurante'
